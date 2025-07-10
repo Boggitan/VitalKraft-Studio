@@ -214,7 +214,10 @@
             <p>Abonnieren Sie unseren Newsletter für exklusive Angebote und Fitness-Tipps</p>
             <form class="newsletter-form" id="newsletter-form" action="https://formspree.io/f/xyzjrkqd" method="POST">
                 <input type="hidden" name="form_type" value="newsletter">
+                <input type="hidden" name="_subject" value="Neue Newsletter-Anmeldung">
                 <input type="hidden" name="_replyto" value="bmt2017@ukr.net">
+                <input type="hidden" name="_next" value="https://boggitan.github.io/VitalKraft-Studio/danke.html">
+                <input type="hidden" name="_format" value="plain">
                 <div class="form-group">
                     <input type="email" id="newsletter-email" name="email" placeholder="Ihre E-Mail Adresse" required>
                     <button type="submit" class="btn btn-secondary">Abonnieren</button>
@@ -235,7 +238,10 @@
                 <div class="contact-form">
                     <form id="probetraining-form" action="https://formspree.io/f/xyzjrkqd" method="POST">
                         <input type="hidden" name="form_type" value="probetraining">
+                        <input type="hidden" name="_subject" value="Probetraining Anfrage">
                         <input type="hidden" name="_replyto" value="bmt2017@ukr.net">
+                        <input type="hidden" name="_next" value="https://boggitan.github.io/VitalKraft-Studio/danke.html">
+                        <input type="hidden" name="_format" value="plain">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -347,5 +353,43 @@
     </footer>
 
     <script src="./js/main.js"></script>
+    <script>
+        // Force redirect after form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const probetrainingForm = document.getElementById('probetraining-form');
+            const newsletterForm = document.getElementById('newsletter-form');
+            
+            function handleFormSubmit(event) {
+                event.preventDefault();
+                
+                const form = event.target;
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    // Redirect to thank you page regardless of response
+                    window.location.href = 'danke.html';
+                })
+                .catch(error => {
+                    // Even on error, redirect to thank you page
+                    window.location.href = 'danke.html';
+                });
+            }
+            
+            if (probetrainingForm) {
+                probetrainingForm.addEventListener('submit', handleFormSubmit);
+            }
+            
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', handleFormSubmit);
+            }
+        });
+    </script>
 </body>
 </html> 

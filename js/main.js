@@ -356,17 +356,9 @@ function setupForms() {
 	const probetrainingForm = document.getElementById('probetraining-form');
 	if (probetrainingForm) {
 		probetrainingForm.addEventListener('submit', function (e) {
-			// Formspree будет обрабатывать отправку формы
-			// Добавляем только редирект на страницу благодарности после успешной отправки
-			const formAction = probetrainingForm.getAttribute('action');
-			if (formAction.includes('formspree.io')) {
-				// Добавляем скрытое поле для редиректа
-				const redirectInput = document.createElement('input');
-				redirectInput.type = 'hidden';
-				redirectInput.name = '_next';
-				redirectInput.value = window.location.origin + '/danke.html';
-				probetrainingForm.appendChild(redirectInput);
-			}
+			// Formspree обрабатывает отправку формы
+			// При необходимости здесь можно добавить дополнительную логику
+			console.log('Probetraining form submitted');
 		});
 	}
 
@@ -374,17 +366,9 @@ function setupForms() {
 	const newsletterForm = document.getElementById('newsletter-form');
 	if (newsletterForm) {
 		newsletterForm.addEventListener('submit', function (e) {
-			// Formspree будет обрабатывать отправку формы
-			// Для формы подписки на рассылку не делаем редирект
-			const formAction = newsletterForm.getAttribute('action');
-			if (formAction.includes('formspree.io')) {
-				// Добавляем скрытое поле для настройки ответа
-				const subjectInput = document.createElement('input');
-				subjectInput.type = 'hidden';
-				subjectInput.name = '_subject';
-				subjectInput.value = 'Neue Newsletter-Anmeldung';
-				newsletterForm.appendChild(subjectInput);
-			}
+			// Formspree обрабатывает отправку формы
+			// При необходимости здесь можно добавить дополнительную логику
+			console.log('Newsletter form submitted');
 		});
 	}
 }
