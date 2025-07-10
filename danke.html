@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vielen Dank - VitalKraft Studio</title>
+    <meta name="description" content="Vielen Dank für Ihre Anfrage bei VitalKraft Studio. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/responsive-fixes.css">
+    <link rel="shortcut icon" href="./img/favicon.svg" type="image/svg+xml">
+    <meta name="robots" content="noindex">
+    <style>
+        .thank-you {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10000;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95));
+        }
+        
+        .thank-you-content {
+            max-width: 600px;
+            width: 90%;
+            padding: 3rem;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 1s;
+            border: 1px solid rgba(111, 0, 255, 0.2);
+            position: relative;
+            z-index: 10000;
+        }
+        
+        .thank-you-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(111, 0, 255, 0.6);
+        }
+        
+        .thank-you-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: var(--color-text);
+        }
+        
+        .thank-you h1 {
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .thank-you p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .thank-you .btn {
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .thank-you .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .countdown {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: var(--color-light-gray);
+        }
+        
+        .countdown span {
+            font-weight: bold;
+            color: var(--color-accent);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Ensure this page is always on top */
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you">
+        <div class="thank-you-content">
+            <div class="thank-you-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <h1>Vielen Dank!</h1>
+            <p>Ihre Anfrage wurde erfolgreich übermittelt. Wir werden uns in Kürze mit Ihnen in Verbindung setzen.</p>
+            <a href="./" class="btn">Zurück zur Startseite</a>
+            <div class="countdown">
+                Sie werden in <span id="countdown">10</span> Sekunden automatisch zur Startseite weitergeleitet.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Countdown and redirect
+        document.addEventListener('DOMContentLoaded', function() {
+            let count = 10;
+            const countdownElement = document.getElementById('countdown');
+            
+            const interval = setInterval(function() {
+                count--;
+                countdownElement.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(interval);
+                    window.location.href = './';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
