@@ -352,44 +352,38 @@ function updateDates() {
 
 // Настройка обработчиков форм
 function setupForms() {
-	// Обработка формы заказа тренировки
+	// Probetraining form handler
 	const probetrainingForm = document.getElementById('probetraining-form');
 	if (probetrainingForm) {
 		probetrainingForm.addEventListener('submit', function (e) {
-			// Не предотвращаем стандартную отправку формы, чтобы она отправилась на сервер
-			// Форма будет обработана PHP-скриптом
-
-			// Сохраняем данные в localStorage для отладки
-			try {
-				const formData = {
-					name: document.getElementById('name').value,
-					email: document.getElementById('email').value,
-					trainingType: document.getElementById('training-type').value,
-					timestamp: new Date().toISOString()
-				};
-				localStorage.setItem('lastFormSubmission', JSON.stringify(formData));
-			} catch (error) {
-				console.error('Error saving form data to localStorage:', error);
+			// Formspree будет обрабатывать отправку формы
+			// Добавляем только редирект на страницу благодарности после успешной отправки
+			const formAction = probetrainingForm.getAttribute('action');
+			if (formAction.includes('formspree.io')) {
+				// Добавляем скрытое поле для редиректа
+				const redirectInput = document.createElement('input');
+				redirectInput.type = 'hidden';
+				redirectInput.name = '_next';
+				redirectInput.value = window.location.origin + '/danke.html';
+				probetrainingForm.appendChild(redirectInput);
 			}
 		});
 	}
 
-	// Обработка формы подписки на рассылку
+	// Newsletter form handler
 	const newsletterForm = document.getElementById('newsletter-form');
 	if (newsletterForm) {
 		newsletterForm.addEventListener('submit', function (e) {
-			// Не предотвращаем стандартную отправку формы, чтобы она отправилась на сервер
-			// Форма будет обработана PHP-скриптом
-
-			// Сохраняем данные в localStorage для отладки
-			try {
-				const formData = {
-					email: document.getElementById('newsletter-email').value,
-					timestamp: new Date().toISOString()
-				};
-				localStorage.setItem('lastNewsletterSubmission', JSON.stringify(formData));
-			} catch (error) {
-				console.error('Error saving newsletter data to localStorage:', error);
+			// Formspree будет обрабатывать отправку формы
+			// Для формы подписки на рассылку не делаем редирект
+			const formAction = newsletterForm.getAttribute('action');
+			if (formAction.includes('formspree.io')) {
+				// Добавляем скрытое поле для настройки ответа
+				const subjectInput = document.createElement('input');
+				subjectInput.type = 'hidden';
+				subjectInput.name = '_subject';
+				subjectInput.value = 'Neue Newsletter-Anmeldung';
+				newsletterForm.appendChild(subjectInput);
 			}
 		});
 	}
